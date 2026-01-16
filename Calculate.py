@@ -59,6 +59,7 @@ def pow_func():
     result_var.set(result)
 
 
+
 Button(root, text="          +          ", command=jam).grid(row=1, column=1, padx=10, pady=5)
 Button(root, text="          -          ", command=menha).grid(row=1, column=3, padx=10, pady=5)
 Button(root, text="          *          ", command=zarb).grid(row=1, column=5, padx=10, pady=5)
