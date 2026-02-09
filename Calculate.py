@@ -2,17 +2,11 @@ from tkinter import *
 
 root = Tk()
 root.title('Calculate')
-root.geometry('300x250')
+root.geometry('400x250')
 root.resizable(False, False)
 
-typed_numbers = ""
-
-display = Entry(root)
-display.grid(row=0, column=0, columnspan=4, padx=10, pady=10, ipadx=5, ipady=10)
-
-result_var = StringVar()
-result_label = Label(root, textvariable=result_var, background="grey")
-result_label.grid(row=0, column=5, padx=10, pady=5)
+display = Entry(root, font=("Arial", 20))
+display.grid(row=0, column=0, columnspan=10, padx=5, pady=10, ipadx=5, ipady=5)
 
 def add_number(num):
     display.insert(END, num)
@@ -22,16 +16,34 @@ def press(key):
 
 def calculate():
     text = display.get()
-    result=eval(text)
+    text = text.replace("^", "**")
+    try:
+        result = eval(text)
+    except:
+        result = "Please enter variable action"
     display.delete(0, END)
     display.insert(END, result)
 
+def clear():
+    display.delete(0, END)
+
+def back():
+    text = display.get()
+    new_text = text[:-1]
+    display.delete(0, END)
+    display.insert(END, new_text)
 
 Button(root, text="          +          ", command=lambda: press("+")).grid(row=1, column=1, padx=10, pady=5)
 Button(root, text="          -          ", command=lambda: press("-")).grid(row=1, column=3, padx=10, pady=5)
 Button(root, text="          *          ", command=lambda: press("*")).grid(row=1, column=5, padx=10, pady=5)
 Button(root, text="          /          ", command=lambda: press("/")).grid(row=2, column=1, padx=10, pady=5)
-Button(root, text="          =          ", command=calculate).grid(row=2, column=5, padx=10, pady=5)
+Button(root, text="          ^          ", command=lambda: press("^")).grid(row=2, column=5, padx=10, pady=5)
+Button(root, text="          C          ", command=clear).grid(row=1, column=6, padx=10, pady=5)
+Button(root, text="          <-         ", command=back).grid(row=2, column=6, padx=10, pady=5)
+Button(root, text="          =          ", command=calculate).grid(row=5, column=6, padx=10, pady=5)
+Button(root, text="          (          ", command=lambda: press("(")).grid(row=3, column=6, padx=10, pady=5)
+Button(root, text="          )          ", command=lambda: press(")")).grid(row=4, column=6, padx=10, pady=5)
+
 
 Button(root, text="          0          ", command=lambda: press("0")).grid(row=2, column=3, padx=10, pady=5)
 Button(root, text="          1          ", command=lambda: press("1")).grid(row=3, column=1, padx=10, pady=5)
