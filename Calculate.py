@@ -1,4 +1,5 @@
 from tkinter import *
+import math
 
 root = Tk()
 root.title('Calculate')
@@ -17,12 +18,15 @@ def press(key):
 def calculate():
     text = display.get()
     text = text.replace("^", "**")
+
     try:
-        result = eval(text)
+        result = eval(text, {"__builtins__": None}, math.__dict__)
     except:
-        result = "Please enter variable action"
+        result = "Error"
+
     display.delete(0, END)
     display.insert(END, result)
+
 
 def clear():
     display.delete(0, END)
